@@ -1,5 +1,3 @@
-// static/script.js
-
 var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 var ws_path = ws_scheme + '://' + window.location.host + "/ws";
 var ws = new WebSocket(ws_path);
@@ -33,7 +31,7 @@ function updateDashboard(data) {
     updateSummaryTable(data.summary_data);
     updateHistoryTable(data.activity_history);
 
-   // Update 24-hour summary
+    // Update 24-hour summary
     console.log("summary table");
     console.log("data.summary_data");
 }
@@ -41,7 +39,8 @@ function updateDashboard(data) {
 function updateCurrentActivity(activity) {
     if (!activity) return;
 
-    document.getElementById("activity-name").textContent = capitalizeFirstLetter(activity.name || 'None');
+    // Use the activity name as-is
+    document.getElementById("activity-name").textContent = activity.name || 'None';
     document.getElementById("activity-id").textContent = activity.activity_id || 'N/A';
     document.getElementById("activity-source").textContent = activity.source || 'N/A';
 
@@ -89,7 +88,7 @@ function updateStatWithAnimation(elementId, newValue) {
 }
 
 function updateSummaryTable(summary) {
-    console.log("updateSummaryTable")
+    console.log("updateSummaryTable");
     var summaryBody = document.getElementById("summary-body");
     summaryBody.innerHTML = '';
 
@@ -101,7 +100,7 @@ function updateSummaryTable(summary) {
 
         // Create table cells
         row.innerHTML = `
-            <td>${capitalizeFirstLetter(item.activity)}</td>
+            <td>${item.activity}</td>
             <td>${item.count}</td>
             <td>${totalDuration}</td>
         `;
@@ -126,7 +125,7 @@ function updateHistoryTable(history) {
         // Create table cells
         row.innerHTML = `
             <td>${timestamp}</td>
-            <td><span class="activity-tag">${capitalizeFirstLetter(item.activity)}</span></td>
+            <td><span class="activity-tag">${item.activity}</span></td>
             <td>${item.result || 'N/A'}</td>
             <td>${formatDuration(item.duration)}</td>
             <td><span class="source-tag">${item.source || 'system'}</span></td>
@@ -168,9 +167,4 @@ function updateActivityDuration() {
         var elapsedSeconds = Math.floor(now - currentActivityStartTime);
         document.getElementById("activity-duration").textContent = formatDuration(elapsedSeconds);
     }
-}
-
-function capitalizeFirstLetter(string) {
-    if (!string) return '';
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }

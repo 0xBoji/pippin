@@ -6,7 +6,7 @@ constraints = {
             'max_per_day': 8
         },
         'after': {
-            'post_a_tweet_with_image': 1 * 3600
+            'post_a_tweet_with_image': 3 * 3600
         }
     },
     'fetch_recent_stories': {

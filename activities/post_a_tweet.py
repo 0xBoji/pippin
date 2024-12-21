@@ -6,7 +6,7 @@ from openai import AsyncOpenAI
 from requests_oauthlib import OAuth1Session
 
 # Set to True to actually post to Twitter, False to skip posting
-ENABLE_TWITTER_POSTING = True
+ENABLE_TWITTER_POSTING = False
 
 class TwitterError(Exception):
     """Custom exception for Twitter API errors"""

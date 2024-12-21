@@ -1,5 +1,3 @@
-// static/logs.js
-
 var allLogs = [];
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -60,7 +58,8 @@ function populateFilters(logs) {
     Array.from(activitySet).sort().forEach(act => {
         var opt = document.createElement('option');
         opt.value = act;
-        opt.textContent = capitalizeFirstLetter(act);
+        // Directly use `act` instead of capitalizing
+        opt.textContent = act;
         activityFilter.appendChild(opt);
     });
 
@@ -77,7 +76,8 @@ function populateFilters(logs) {
     Array.from(sourceSet).sort().forEach(src => {
         var opt = document.createElement('option');
         opt.value = src;
-        opt.textContent = capitalizeFirstLetter(src);
+        // Directly use `src` instead of capitalizing
+        opt.textContent = src;
         sourceFilter.appendChild(opt);
     });
 }
@@ -125,7 +125,8 @@ function updateLogsTable(logs) {
 
         row.innerHTML += `
             <td>${timestamp}</td>
-            <td><span class="activity-tag">${capitalizeFirstLetter(item.activity)}</span></td>
+            <!-- Directly use item.activity instead of capitalizing -->
+            <td><span class="activity-tag">${item.activity}</span></td>
             <td>${item.result || 'N/A'}</td>
             <td>${formatDuration(item.duration)}</td>
             <td><span class="source-tag">${item.source || 'system'}</span></td>
@@ -142,7 +143,7 @@ function formatStateChanges(changes) {
         const changeClass = value > 0 ? 'positive' : value < 0 ? 'negative' : '';
         const sign = value > 0 ? '+' : '';
         return `<span class="state-change ${changeClass}">${key}: ${sign}${value}</span>`;
-    }).join(' ');
+    }).join('');
 }
 
 function formatDuration(seconds) {
@@ -157,9 +158,4 @@ function formatDuration(seconds) {
     parts.push(secs + 's');
 
     return parts.join(' ');
-}
-
-function capitalizeFirstLetter(string) {
-    if (!string) return '';
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
